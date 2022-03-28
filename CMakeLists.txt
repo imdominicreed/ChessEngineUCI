@@ -6,7 +6,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -Wextra -flto")
 
 file(GLOB src_files CONFIGURE_DEPENDS
 		"ChessBoardAPI/src/*")
-add_executable(dom_eng UCI.cpp ${src_files})
+
+add_executable(dom_eng UCI.cpp eval.cpp eval.hpp minmax.cpp minmax.hpp ${src_files})
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
