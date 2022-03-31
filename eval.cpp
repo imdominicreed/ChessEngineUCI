@@ -1,8 +1,9 @@
 #include "ChessBoardAPI/src/board.hpp"
 #include "ChessBoardAPI/src/bitutil.hpp"
+#include <iostream>
 
 int count(bitboard num) {
-	return  __builtin_clzll(num);
+	return  __builtin_popcountll(num);
 }
 
 int get_points(Board* board, bitboard pieces) {

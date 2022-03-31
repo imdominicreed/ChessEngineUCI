@@ -25,6 +25,9 @@ int minmax(Board* board, int depth) {
 
 Move best_move(Board* board) {
 	int color = board->white ? 1 : -1;
+	std::ofstream file;
+	file.open("eval");	
+	file << "curr_eval: " << eval(board) << "\n";
 	Move move_list[256];
 	int best = INT32_MIN;
 	Move best_move;
@@ -37,8 +40,6 @@ Move best_move(Board* board) {
 			best = move_score;
 		}
 	}
-	std::ofstream file;
-	file.open("eval");
 	char move_str[5];
 	print_move(move_str, &best_move);
 	file << move_str << " " << best << "\n";

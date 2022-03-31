@@ -1,11 +1,14 @@
 #include "ChessBoardAPI/src/move.hpp"
+#include <utility>
+#include "eval.hpp"
 #include "ChessBoardAPI/src/board.hpp"
 #include <string>
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include <fstream>
-#include "minmax.hpp"
+#include <cstring>
+#include "pminmax.hpp"
 
 using namespace std;
 vector<string> split(string s) {
@@ -18,7 +21,7 @@ vector<string> split(string s) {
 	return ret;
 }
 
-Move next_move(Board board, int depth) {
+std::pair<Move, int> next_move(Board board, int depth) {
 	return best_move(&board);
 }
 
@@ -29,6 +32,7 @@ int main() {
 	file<< "Hello World!" << endl;
 	Board board;
 	start_board(&board);
+	eval(&board);
 	string line;
 	while(getline(cin, line)) {
 		file << line << endl;
@@ -61,10 +65,10 @@ int main() {
 				board = do_move(&m, board);
 			}
 		} else if (spl[0] == "go") {
-			Move best_move = next_move(board, 2);
-			cout << "info depth 1 seldepth 1 multipv 1 score cp 82 nodes 1000 nps 1 tbhits 0 time 2 pv" << endl;
+			std::pair<Move, int> best_move = next_move(board, 2);
+			cout << "info depth 5 score cp " <<  best_move.second << endl;
 			char move_str[5];
-			print_move(move_str, &best_move);
+			print_move(move_str, &best_move.first);
 			cout << "bestmove " << move_str << endl;
 		} else file << "unknown " << line << endl;
 	} 
