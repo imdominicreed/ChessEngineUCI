@@ -1,0 +1,306 @@
+recieve uci
+size: 1
+id name dominic engine
+id author dominic
+
+uciok
+recieve ucinewgame
+size: 1
+recieve isready
+size: 1
+recieve position fen 2r2rk1/pp1bqpp1/2nppn1p/2p3N1/1bP5/1PN3P1/PBQPPPBP/3R1RK1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2r5/pp2p1k1/3pp1P1/q7/4P3/2r5/PPPQ4/1K5R b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 7k/1pp4p/3p2q1/p1nPp3/2P1Pr2/8/PPB5/1K4RQ b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r2qrbk1/1bp2ppp/p2p1n2/2p2NB1/4P3/2N2Q2/PPP2PPP/R3R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 1rr3k1/4pp1p/2Np2p1/PP6/2Q5/2R3Pb/2p2P1P/2q2BK1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2r4k/3r1p1p/1p2pP2/p2pPp1P/P2P1Q2/6R1/4B1PK/2q5 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen R4rk1/5bb1/1N1Qpq1p/3pn1p1/3N4/2P2P1P/P5P1/5B1K w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 5r1k/bp4pp/1n6/5qN1/1PR5/P2Q3P/5PP1/6K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r2b1r1k/pppq2pn/2npb1Q1/3N1N1p/2B1PP1P/8/PPP5/2K3RR w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2rr2kb/1p1b1p1p/p2pp1pB/q3n3/2PNP3/1PN4P/P2Q1PP1/2RR2K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2q5/pR6/1p3pnk/1P4pp/8/5QPP/P2r2BK/8 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 1nkrnr2/pp1bbp1p/1qp3p1/3P4/8/1NNB3P/PPQ3PB/1K1R3R w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 3r2k1/1b3ppp/6n1/1pq1p1P1/8/1QP2P1P/3rNRB1/R4K2 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/7p/2p1r3/Qqkrp3/4R1P1/7P/1P1p4/4RK2 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4r1k1/pp1rBp1p/5Qp1/3q4/8/2P4P/3nRPP1/4R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/5pk1/2p3p1/3p2p1/3Pq3/r3P1PP/r1R1QP2/2R3K1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r3q3/1pb1rbk1/2pn1p1p/p1Qp1Bp1/3P4/4P1NP/PP3PPB/3RR1K1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r1b4k/3q2rp/8/2pP1Q2/1pB3n1/7R/PP4PP/3R2K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 1r1qkb1r/p2p3p/4p1N1/2p1Pp1Q/1p2n2P/6P1/PPP2PB1/R1B2bK1 b k - 0 3
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen q1r1r2k/p5pp/1p2B3/1bbP4/8/3R2P1/PB2QP1P/2R3K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r4rk1/1p1b2b1/p2p3p/P1nPq1p1/2PN4/2N1P1P1/3Q2BK/1R2R3 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 5k2/p5pp/r7/2pB2p1/b1P5/6P1/4PP1P/R5K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2b3k1/p4ppp/1p6/8/5Q1P/8/Pq3PP1/1B4K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4r1k1/1b3ppp/1q6/1Q6/4rB2/7P/3R1PP1/1R4K1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/3B2p1/8/1p2kp2/b1p4P/P1P1P1P1/5K2/8 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/8/R6p/5Qpk/8/4q1pP/8/7K b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/4Nk2/5P2/pK4P1/P6b/8/8/8 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2r1k3/pp1b2b1/4p1r1/5RBp/5QqP/3B4/PPPKR3/8 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2r5/p4pk1/2q2Npp/8/2bP4/8/P4PPP/Q3R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/2Q3pp/5pk1/8/2b1p1n1/4PqP1/PB1Q1P1P/6K1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2r2k2/p1rbnpbp/3Q1np1/q2P4/Pp4P1/2N1B1NP/1P3PB1/2R1R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r3k2r/p2bbppp/4p3/2p1B1q1/3Q4/2PB4/P1P2PPP/R2R2K1 w kq - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6r1/1pp2kb1/2b4p/p1qN4/2P2p2/1P3P2/P6P/2QR1B1K b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6k1/1ppb1p2/5r2/2bp2q1/p2N2p1/2PQN1P1/PP4P1/5RK1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 1r1q2k1/R4p2/3Pb2p/4Q1p1/1p2B3/2p3PP/1P3P2/6K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2kr2r1/p1p5/2p1p3/3p2q1/1b1P1Q1R/2N5/PPP2P2/2KR4 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r2r2k1/5ppp/1p2p3/1Q1nq3/p7/P5P1/1P3P1P/R1BR2K1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 3r1rk1/pp4b1/5q1p/2p2P2/2P1B1Q1/PnN3P1/1PK2PPR/7R b - - 0 2
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 1r3b2/2r2kpp/p2pp2q/4P2P/3N1P2/2p4Q/P1P5/K2R2R1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen br2rk2/qn2b1np/2Rp2pN/pp1Pp3/1B2Pp2/1P1B1N1P/P2Q1PP1/2R3K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 5r1k/p4rq1/3p2p1/2pB3p/2P3b1/3P2P1/P3RP1P/2Q1R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 7k/1b5p/2q2p1Q/p3pP2/1p2N3/3p2r1/P5P1/2R4K b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 7r/1q2bpk1/p3pn2/1p2R2r/3Nn1p1/P1PQ4/1P3PPB/3R1NK1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen R1b2r2/7k/1R4p1/2pN3p/2P1B1q1/3Pp1P1/4P2P/6K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6k1/5pp1/8/B2n4/5P2/P4QPp/4K3/7q b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6rk/Bp1q4/3b4/P2Pp1r1/2Q2p1p/2P2P1P/5RP1/R6K b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2k4r/pp1b2p1/4p1B1/3pP1P1/3K1R2/P3P1p1/2P5/8 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2q3k1/4Qp1p/p2Pn1pB/1p1r4/8/1P5P/1P4P1/4R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2n2rk1/r2b1ppp/pq6/3Bp3/3pP3/6Q1/PP1B2PP/2R1R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 5b1k/p5pp/8/1pp1B3/8/Pr4P1/5PKP/4R3 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6r1/R1R5/p4pk1/1p1p1p1p/1P1P3P/6PK/4rq2/2Q5 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4r1k1/pp2rqpp/2pb1pn1/2N5/3P4/1P2PQP1/P1R1NPKP/1R6 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen rq3b1r/p2Qnppp/k1B5/8/2N1P3/5b2/PP3P1P/R1B1K2R w KQ - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r3r3/2q2kp1/3p1b2/p3pQ2/Pp2P3/4B3/1PP4P/2KR2R1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2bq1r1k/6rp/pp6/3p1B2/3P3Q/4PR1P/P7/5R1K w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 7k/3q4/6Q1/3p2K1/3P1P2/4P3/8/8 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 8/1pQ2ppk/2b1p2p/3q4/6N1/6KP/P4PP1/7r w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4r2k/pR5p/6p1/4b3/3B4/2P2K2/1P6/8 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r1b1r1k1/pp1nqp2/2p1p1pp/8/4N3/P1Q1P3/1P3PPP/1BRR2K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4r1bk/pp4pp/2nq4/3n2N1/2BP4/P2Q2P1/3B3P/R5K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r3br1k/p5pp/1p3p2/5P2/4P2R/2P1Q1R1/q3B1PP/6K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2r1kr2/pR5p/2q5/3p4/Q3bP2/8/PP4PP/4R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4Q3/7k/2p2q1p/1p3p1K/5P2/p6P/8/8 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r3n1k1/2rR1p1p/p1p1q1p1/2B1p3/R3P3/1P5P/P2Q1PP1/6K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen q5k1/5ppp/4p3/1p1p4/1PnP4/2P4P/1Q2RPPK/r1N5 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen k6r/rb3R1p/NQ4p1/2p2n2/1p6/8/PPn3PP/6K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6R1/p4p2/1p2q2p/8/6Pk/8/PP2r1PK/3Q4 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 4r3/p1p1rp1k/1p4pp/5q1n/8/P1P4P/1P1QNPP1/2R1RK2 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r4rk1/pb2qpnp/1p2p1p1/2p5/4N3/1P2P1P1/P4PBP/R1QR2K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 2Q5/8/p3R3/P5pP/3p2P1/3k4/3q4/6K1 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6k1/r6p/pp1p2p1/2pP2q1/P1Pb4/4B3/1P1Q2PP/5RK1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r2r1bk1/1p3p1p/3P2p1/p2P4/4NP1Q/2N4P/1q4P1/4R1K1 w - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen 6k1/1b3pp1/4p2p/p3P3/1p3P2/1PbB3P/P5P1/qQ2BK2 b - - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
+recieve position fen r1bq1r1k/p3b1p1/1p1p3p/n3p1PQ/8/P1P3N1/BP3PP1/R3K2R w KQ - 0 1
+size: 8
+recieve go movetime 30000
+size: 3
