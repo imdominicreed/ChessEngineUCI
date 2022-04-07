@@ -9,7 +9,7 @@ set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-point
 file(GLOB src_files CONFIGURE_DEPENDS
 		"ChessBoardAPI/src/*")
 
-add_executable(dom_eng UCI.cpp eval.cpp eval.hpp minmax.cpp pminmax.cpp engine.hpp ${src_files})
+add_executable(dom_eng tpalphabeta.cpp talphabeta.cpp tt.cpp tt.hpp UCI.cpp palphabeta.cpp alphabeta.cpp eval.cpp eval.hpp minmax.cpp pminmax.cpp engine.hpp ${src_files})
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 target_link_libraries(dom_eng PRIVATE Threads::Threads)

@@ -30,6 +30,10 @@ int main(int argc, char** argv) {
 	if(argc != 2) return 0;
 	if(!strcmp("pminmax", argv[1])) best_move = best_move_parallelminmax;
 	else if(!strcmp("minmax", argv[1])) best_move = best_move_minmax;
+	else if(!strcmp("alphabeta", argv[1])) best_move = best_move_alphabeta;
+	else if(!strcmp("palphabeta", argv[1])) best_move = best_move_parallelalphabeta;
+	else if(!strcmp("talphabeta", argv[1])) best_move = best_move_alphabeta_transpose;
+	else if(!strcmp("tpalphabeta", argv[1])) best_move = best_move_alphabeta_transpose_parallel;
 	else return 0;
 	Board board;
 	start_board(&board);
@@ -76,7 +80,7 @@ int main(int argc, char** argv) {
 				board = do_move(&m, board);
 			}
 		} else if (spl[0] == "go") {
-			Move best_move = next_move(board, 5);
+			Move best_move = next_move(board, 7);
 			char move_str[5];
 			print_move(move_str, &best_move);
 			cout << "bestmove " << move_str << endl;
