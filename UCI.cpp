@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
 				board = do_move(&m, board);
 			}
 		} else if (spl[0] == "go") {
-			Move best_move = next_move(board, 7);
+			Move best_move = next_move(board, 5);
 			char move_str[5];
 			print_move(move_str, &best_move);
 			cout << "bestmove " << move_str << endl;

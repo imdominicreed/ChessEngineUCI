@@ -9,7 +9,7 @@ print(game)
 engine = chess.engine.SimpleEngine.popen_uci([ENGINE_FILE, ALGO])
 total = 0
 correct = 0
-while total != 10 and game:
+while total != 100 and game:
     total += 1
     result = engine.play(game.board(), chess.engine.Limit(30))
     if list(game.mainline_moves())[0].uci() == result.move.uci():

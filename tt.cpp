@@ -15,7 +15,7 @@ void Entry::save(long long key, int score, int depth) {
 
 TranspositionTable::TranspositionTable() {
 	Board b;
-	table.resize(1000007, {0, INVALID, 100});
+	table.resize(1000007, {0, INVALID, -1});
 	
 }
 void TranspositionTable::save(Board* b, int score, int depth) {
