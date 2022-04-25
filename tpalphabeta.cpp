@@ -38,15 +38,10 @@ Move best_move_alphabeta_transpose_parallel(Board* board, int depth) {
 		std::thread t(runalphabetat, b, depth -1, std::move(p), move_list[i], &tr);
 		threads.push_back(std::move(t));
 	}
-	cerr << "\nNew Move Sequence\n";
 	for(int i = 0; i < num_moves; i++) {
 		threads[i].join();
 		int data = futures[i].get();
 		int eval = data * color;
-		char first[5];
-		print_move(first, &move_list[i]);
-		cerr << "Evaluation: " << eval << " Move: " << first << " Line: ";
-		cerr << endl;
 		if(eval > best) {
 			best = eval;
 			best_move = move_list[i];
