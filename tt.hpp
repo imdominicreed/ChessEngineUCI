@@ -1,21 +1,21 @@
 #include <vector>
+
 #include "ChessBoardAPI/src/board.hpp"
 
-const int INVALID = INT32_MIN+1;
+const int INVALID = INT32_MIN + 1;
 
 struct Entry {
-	unsigned long long key;
-	int score;
-	int depth;
-	Board b;
-	void save(long long key, int score, int depth, Board b);
+  unsigned long long key;
+  int score;
+  int depth;
+  void save(long long key, int score, int depth);
 };
 class TranspositionTable {
-	private:
-		std::vector<Entry> table;
-	public:
-		TranspositionTable();
-		int getScore(Board* b, int depth);
-		void save(Board* b, int score, int depth);
-};
+ private:
+  std::vector<Entry> table;
 
+ public:
+  TranspositionTable();
+  int getScore(Board* b, int depth);
+  void save(Board* b, int score, int depth);
+};
