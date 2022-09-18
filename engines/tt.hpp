@@ -4,7 +4,7 @@
 #include <set>
 #include <vector>
 
-#include "../ChessBoardAPI/src/board.hpp"
+#include "../ChessBoardAPI/board/board.hpp"
 
 const int INVALID = INT32_MIN + 1;
 

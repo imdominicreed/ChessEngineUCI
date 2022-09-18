@@ -1,7 +1,7 @@
 #include "engine.hpp"
 using namespace std;
 
-void runminmax(Board board, int depth, std::promise<int> p, Move m) {
+void runminmax(Board board, int depth, std::promise<int> p) {
   p.set_value(minmax(&board, depth));
 }
 
@@ -10,11 +10,11 @@ Move best_move_parallelminmax(Board* board, int depth) {
   Move move_list[256];
   int best = INT32_MIN;
   Move best_move;
-  int num_moves = get_move_list(board, move_list);
+  int num_moves = board->getMoveList(move_list);
   vector<std::thread> threads;
   vector<std::future<int>> futures;
   for (int i = 0; i < num_moves; i++) {
-    Board b = do_move(&move_list[i], *board);
+    Board b = board->doMove(&move_list[i]);
     std::promise<int> p;
     futures.push_back(move(p.get_future()));
     std::thread t(runminmax, b, depth - 1, std::move(p), move_list[i]);
@@ -27,9 +27,8 @@ Move best_move_parallelminmax(Board* board, int depth) {
     threads[i].join();
     int data = futures[i].get();
     int eval = data * color;
-    char first[5];
-    print_move(first, &move_list[i]);
-    cerr << "Evaluation: " << eval << " Move: " << first << " Line: ";
+    cerr << "Evaluation: " << eval << " Move: " << move_list[i].toString()
+         << " Line: ";
     cerr << endl;
     if (eval > best) {
       best = eval;

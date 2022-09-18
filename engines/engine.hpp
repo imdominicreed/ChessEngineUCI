@@ -9,9 +9,9 @@
 #include <utility>
 #include <vector>
 
-#include "../ChessBoardAPI/src/board.hpp"
-#include "../ChessBoardAPI/src/move.hpp"
-#include "../ChessBoardAPI/src/move_gen.hpp"
+#include "../ChessBoardAPI/board/board.hpp"
+#include "../ChessBoardAPI/move/move.hpp"
+#include "../ChessBoardAPI/move/move_gen.hpp"
 #include "../eval/eval.hpp"
 #include "tt.hpp"
 
