@@ -1,5 +1,5 @@
 #include <stdint.h>
-
+#pragma once
 #include <algorithm>  // std::max
 #include <fstream>
 #include <future>

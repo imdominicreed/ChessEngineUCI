@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void runalphabetat(Board board, int depth, std::promise<int> p, Move m,
+void runalphabetat(Board board, int depth, std::promise<int> p,
                    TranspositionTable* t) {
   p.set_value(alphabetat(&board, depth, INT32_MIN, INT32_MAX, t));
 }
@@ -21,7 +21,7 @@ Move best_move_alphabeta_transpose_parallel(Board* board, int depth) {
     Board b = board->doMove(&move_list[i]);
     std::promise<int> p;
     futures.push_back(move(p.get_future()));
-    std::thread t(runalphabetat, b, depth - 1, std::move(p), move_list[i], &tr);
+    std::thread t(runalphabetat, b, depth - 1, std::move(p), &tr);
     threads.push_back(std::move(t));
   }
   cerr << "\nNew Move Sequence\n";

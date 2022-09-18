@@ -17,7 +17,7 @@ Move best_move_parallelalphabeta(Board* board, int depth) {
     Board b = board->doMove(&move_list[i]);
     std::promise<int> p;
     futures.push_back(move(p.get_future()));
-    std::thread t(runalphabeta, b, depth - 1, std::move(p), move_list[i]);
+    std::thread t(runalphabeta, b, depth - 1, std::move(p));
     threads.push_back(std::move(t));
   }
   cerr << "\nNew Move Sequence\n";

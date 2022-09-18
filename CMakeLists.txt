@@ -6,16 +6,25 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -Wextra -flto")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=thread")
 set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=thread")
 
-file(GLOB board_api CONFIGURE_DEPENDS
-	"ChessBoardAPI/src/*")
+file(GLOB board CONFIGURE_DEPENDS
+	"ChessBoardAPI/board/*")
+
+file(GLOB move CONFIGURE_DEPENDS
+	"ChessBoardAPI/move/*")
+
+file(GLOB magic CONFIGURE_DEPENDS
+	"ChessBoardAPI/magic/*")
+
+file(GLOB util CONFIGURE_DEPENDS
+	"ChessBoardAPI/util/*")
 
 file(GLOB engines CONFIGURE_DEPENDS "engines/*")
 
-include_directories("engines")
+include_directories("engines" "board" "magic" "util")
 
 file(GLOB eval CONFIGURE_DEPENDS "eval/*")
 
-add_executable(uci main.cpp ${eval} ${engines} ${board_api})
+add_executable(uci main.cpp ${eval} ${engines} ${board} ${move} ${magic} ${util})
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 target_link_libraries(uci PRIVATE Threads::Threads)
