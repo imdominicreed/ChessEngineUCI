@@ -6,8 +6,8 @@
 #include <utility>
 #include <vector>
 
-#include "ChessBoardAPI/src/board.hpp"
-#include "ChessBoardAPI/src/move.hpp"
+#include "ChessBoardAPI/board/board.hpp"
+#include "ChessBoardAPI/move/move.hpp"
 #include "engines/engine.hpp"
 #include "eval/eval.hpp"
 
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
     return -1;
   }
   Board board;
-  start_board(&board);
+  board.startBoard();
   string line;
   while (getline(cin, line)) {
     vector<string> spl = split(line);
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
       cout << "readyok" << endl;
 
     else if (spl[0] == "ucinewgame")
-      start_board(&board);
+      board.startBoard();
     else if (spl[0] == "normalize")
       continue;  // not implemented
     else if (spl[0] == "position") {
@@ -83,23 +83,19 @@ int main(int argc, char** argv) {
         }
         char fen[512];
         strcpy(fen, ss.str().c_str());
-        Board* b = import_fen(fen);
-        board = *b;
-        free(b);
+        board = import_fen(fen);
         start = 8;
       } else
-        start_board(&board);
+        board.startBoard();
       for (int i = start; i < spl.size(); i++) {
         char arr[5];
         strcpy(arr, spl[i].c_str());
-        Move m = move_from_str(board, arr);
-        board = do_move(&m, board);
+        Move m = board.moveFromStr(arr);
+        board = board.doMove(&m);
       }
     } else if (spl[0] == "go") {
       Move best_move = next_move(board, 7);
-      char move_str[5];
-      print_move(move_str, &best_move);
-      cout << "bestmove " << move_str << endl;
+      cout << "bestmove " << best_move.toString() << endl;
     } else
       cerr << "unknown " << line << endl;
   }

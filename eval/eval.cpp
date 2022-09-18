@@ -1,7 +1,6 @@
 #include <iostream>
 
-#include "../ChessBoardAPI/src/bitutil.hpp"
-#include "../ChessBoardAPI/src/board.hpp"
+#include "eval.hpp"
 
 int count(bitboard num) { return __builtin_popcountll(num); }
 
