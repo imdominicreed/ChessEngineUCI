@@ -1,14 +1,14 @@
 import chess.pgn
 
-ENGINE_FILE = "../Release/dom_eng"
-ALGO = "alphabeta"
-pgn = open("p.pgn")
+ENGINE_FILE = "testing/run.sh"
+ALGO = "tpalphabeta"
+pgn = open("testing/p.pgn")
 game = chess.pgn.read_game(pgn)
 print(game)
 engine = chess.engine.SimpleEngine.popen_uci([ENGINE_FILE, ALGO])
 total = 0
 correct = 0
-while total != 20 and game:
+while total != 100 and game:
     total += 1
     result = engine.play(game.board(), chess.engine.Limit(30))
     if list(game.mainline_moves())[0].uci() == result.move.uci():
