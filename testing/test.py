@@ -4,7 +4,6 @@ ENGINE_FILE = "testing/run.sh"
 ALGO = "tpalphabeta"
 pgn = open("testing/p.pgn")
 game = chess.pgn.read_game(pgn)
-print(game)
 engine = chess.engine.SimpleEngine.popen_uci([ENGINE_FILE, ALGO])
 total = 0
 correct = 0

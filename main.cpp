@@ -25,36 +25,38 @@ ftype best_move;
 Move next_move(Board board, int depth) { return best_move(&board, depth); }
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    printf(
-        "Pass args:\n"
-        "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
-    return -1;
-  }
-  if (!strcmp("pminmax", argv[1]))
-    best_move = best_move_parallelminmax;
-  else if (!strcmp("minmax", argv[1]))
-    best_move = best_move_minmax;
-  else if (!strcmp("alphabeta", argv[1]))
-    best_move = best_move_alphabeta;
-  else if (!strcmp("palphabeta", argv[1]))
-    best_move = best_move_parallelalphabeta;
-  else if (!strcmp("talphabeta", argv[1]))
-    best_move = best_move_alphabeta_transpose;
-  else if (!strcmp("tpalphabeta", argv[1]))
-    best_move = best_move_alphabeta_transpose_parallel;
-  else {
-    printf(
-        "Pass args:\n"
-        "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
-    return -1;
-  }
+  // if (argc != 2) {
+  //   printf(
+  //       "Pass args:\n"
+  //       "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
+  //   return -1;
+  // }
+  // if (!strcmp("pminmax", argv[1]))
+  //   best_move = best_move_parallelminmax;
+  // else if (!strcmp("minmax", argv[1]))
+  //   best_move = best_move_minmax;
+  // else if (!strcmp("alphabeta", argv[1]))
+  //   best_move = best_move_alphabeta;
+  // else if (!strcmp("palphabeta", argv[1]))
+  //   best_move = best_move_parallelalphabeta;
+  // else if (!strcmp("talphabeta", argv[1]))
+  //   best_move = best_move_alphabeta_transpose;
+  // else if (!strcmp("tpalphabeta", argv[1]))
+  //   best_move = best_move_alphabeta_transpose_parallel;
+  // else {
+  //   printf(
+  //       "Pass args:\n"
+  //       "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
+  //   return -1;
+  // }
+
+  best_move = best_move_alphabeta_transpose_parallel;
   Board board;
   board.startBoard();
   string line;
   while (getline(cin, line)) {
-    vector<string> spl = split(line);
     cerr << "recieve " << line << endl;
+    vector<string> spl = split(line);
     cerr << "size: " << spl.size() << endl;
     if (!spl.size()) continue;
     if (spl[0] == "uci") {
@@ -91,6 +93,7 @@ int main(int argc, char** argv) {
         char arr[5];
         strcpy(arr, spl[i].c_str());
         Move m = board.moveFromStr(arr);
+        cerr << "Move: " << m.toString() << endl;
         board = board.doMove(&m);
       }
     } else if (spl[0] == "go") {

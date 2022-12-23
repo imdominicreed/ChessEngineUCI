@@ -12,8 +12,7 @@ struct Entry {
   unsigned long long key;
   int score;
   int depth;
-  Board board;  // debug
-  void save(long long key, int score, int depth, Board board);
+  void save(unsigned long long key, int score, int depth);
 };
 class TranspositionTable {
  private:

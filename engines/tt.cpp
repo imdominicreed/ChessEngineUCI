@@ -1,21 +1,20 @@
 #include "tt.hpp"
 using namespace std;
 
-void Entry::save(long long key, int score, int depth, Board board) {
+void Entry::save(unsigned long long key, int score, int depth) {
   // racy
+  this->key = key;
   this->depth = depth;
   this->score = score;
-  this->key = key;
-  this->board = board;
 }
 
 TranspositionTable::TranspositionTable() {
   Board b = {};
-  table.resize(100007, {0, INVALID, -1, b});
+  table.resize(100000007, {0, INVALID, -1});
 }
 void TranspositionTable::save(Board* b, int score, int depth) {
   Entry* e = &table[b->key % table.size()];
-  e->save(b->key, score, depth, *b);
+  e->save(b->key, score, depth);
 }
 string print_vector(vector<Move> moves) {
   string str;
@@ -27,15 +26,6 @@ string print_vector(vector<Move> moves) {
 
 int TranspositionTable::getScore(Board* b, int depth) {
   Entry entry = table[b->key % table.size()];
-  if (entry.key == b->key && *b != entry.board && entry.score != INVALID) {
-    cerr << "Error Occured with Key!!\nKey: " << endl;
-    //  << "\n "
-    //  //  << print_vector(entry.board.move_list) << "\n"
-    //  << entry.board.toString()
-    //  << '\n'
-    //  //  << print_vector(b->move_list) << "\n"
-    //  << b->toString() << '\n';
-  }
   if (entry.key != b->key || depth > entry.depth) return INVALID;
   return entry.score;
 }

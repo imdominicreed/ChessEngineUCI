@@ -9,7 +9,7 @@ int alphabetat(Board* board, int depth, int alpha, int beta,
   Move move_list[256];
   int num_moves = board->getMoveList(move_list);
   if (num_moves == 0) return 0;
-  if (num_moves == -1) return (board->white ? 1 : -1) * checkmate;
+  if (num_moves == -1) return (board->white ? 1 : -1) * (100 + checkmate);
   int tt_score = t->getScore(board, depth);
   if (tt_score != INVALID) {
     return tt_score;
@@ -19,7 +19,12 @@ int alphabetat(Board* board, int depth, int alpha, int beta,
     int value = INT32_MIN;
     for (int i = 0; i < num_moves; i++) {
       Board b = board->doMove(&move_list[i]);
-      value = std::max(value, alphabetat(&b, depth - 1, alpha, beta, t));
+      int new_value = alphabetat(&b, depth - 1, alpha, beta, t);
+      if (new_value >= checkmate)
+        new_value--;
+      else if (new_value <= -checkmate)
+        new_value++;
+      value = std::max(value, new_value);
       alpha = std::max(alpha, value);
       if (value >= beta) break;
     }
@@ -29,7 +34,12 @@ int alphabetat(Board* board, int depth, int alpha, int beta,
     int value = INT32_MAX;
     for (int i = 0; i < num_moves; i++) {
       Board b = board->doMove(&move_list[i]);
-      value = std::min(value, alphabetat(&b, depth - 1, alpha, beta, t));
+      int new_value = alphabetat(&b, depth - 1, alpha, beta, t);
+      if (new_value >= checkmate)
+        new_value--;
+      else if (new_value <= -checkmate)
+        new_value++;
+      value = std::min(value, new_value);
       beta = std::min(beta, value);
       if (value <= alpha) break;
     }

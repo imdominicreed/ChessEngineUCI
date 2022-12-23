@@ -4,6 +4,7 @@
 #include <fstream>
 #include <future>
 #include <iostream>
+#include <semaphore>
 #include <sstream>
 #include <thread>
 #include <utility>
@@ -16,6 +17,7 @@
 #include "tt.hpp"
 
 const int checkmate = 10000000;
+
 int alphabetat(Board* board, int depth, int alpha, int beta,
                TranspositionTable* t);
 int alphabeta(Board* board, int depth, int alpha, int beta);
