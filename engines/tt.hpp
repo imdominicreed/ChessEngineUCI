@@ -12,7 +12,8 @@ struct Entry {
   unsigned long long key;
   int score;
   int depth;
-  void save(unsigned long long key, int score, int depth);
+  Move move;
+  void save(unsigned long long key, int score, int depth, Move move);
 };
 class TranspositionTable {
  private:
@@ -20,6 +21,6 @@ class TranspositionTable {
 
  public:
   TranspositionTable();
-  int getScore(Board* b, int depth);
-  void save(Board* b, int score, int depth);
+  Entry probe(Board* b, int depth);
+  void save(Board* b, int score, int depth, Move move);
 };

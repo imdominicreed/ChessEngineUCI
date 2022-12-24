@@ -45,12 +45,12 @@ int main(int argc, char** argv) {
   //   best_move = best_move_alphabeta_transpose_parallel;
   // else {
   //   printf(
-  //       "Pass args:\n"
+  //       "Pass args:\n"s
   //       "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
   //   return -1;
   // }
 
-  best_move = best_move_alphabeta_transpose_parallel;
+  best_move = lazy_smp;
   Board board;
   board.startBoard();
   string line;
@@ -97,8 +97,9 @@ int main(int argc, char** argv) {
         board = board.doMove(&m);
       }
     } else if (spl[0] == "go") {
-      Move best_move = next_move(board, 7);
+      Move best_move = next_move(board, 5000);
       cout << "bestmove " << best_move.toString() << endl;
+
     } else
       cerr << "unknown " << line << endl;
   }
