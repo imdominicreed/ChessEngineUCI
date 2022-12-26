@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "eval.hpp"
+
+#include <iostream>
 
 int count(bitboard num) { return __builtin_popcountll(num); }
 
@@ -14,6 +14,6 @@ int get_points(Board* board, bitboard pieces) {
 }
 
 int eval(Board* board) {
-  return get_points(board, board->white_pieces) -
-         get_points(board, board->black_pieces);
+  return (board->white ? 1 : -1) * (get_points(board, board->white_pieces) -
+                                    get_points(board, board->black_pieces));
 }

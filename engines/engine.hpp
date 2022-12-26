@@ -17,7 +17,9 @@
 #include "../eval/eval.hpp"
 #include "tt.hpp"
 
-const int checkmate = 10000000;
+const int checkmate = 1000000;
+const int SMALL = -100000000;
+const int BIG = 10000000;
 
 int alphabetat(Board* board, int depth, int alpha, int beta,
                TranspositionTable* t, std::atomic<bool>* exit);

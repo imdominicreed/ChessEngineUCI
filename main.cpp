@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
   //   return -1;
   // }
 
-  best_move = lazy_smp;
+  best_move = ids_split;
   Board board;
   board.startBoard();
   string line;
@@ -60,11 +60,10 @@ int main(int argc, char** argv) {
     cerr << "size: " << spl.size() << endl;
     if (!spl.size()) continue;
     if (spl[0] == "uci") {
-      cout << "id name dominic engine" << endl;
+      cout << "id name ids_split engine" << endl;
       cout << "id author dominic\n" << endl;
       cout << "uciok" << endl;
-      cerr << "id name dominic engine" << endl;
-      cerr << "id author dominic\n" << endl;
+
       cerr << "uciok" << endl;
 
     } else if (spl[0] == "quit")
@@ -97,7 +96,7 @@ int main(int argc, char** argv) {
         board = board.doMove(&m);
       }
     } else if (spl[0] == "go") {
-      Move best_move = next_move(board, 5000);
+      Move best_move = next_move(board, 3000);
       cout << "bestmove " << best_move.toString() << endl;
 
     } else

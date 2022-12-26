@@ -15,7 +15,7 @@ TranspositionTable::TranspositionTable() {
 }
 void TranspositionTable::save(Board* b, int score, int depth, Move move) {
   Entry* e = &table[b->key % table.size()];
-  e->save(b->key, score, depth, move);
+  if (depth < e->depth) e->save(b->key, score, depth, move);
 }
 string print_vector(vector<Move> moves) {
   string str;
@@ -25,8 +25,8 @@ string print_vector(vector<Move> moves) {
   return str;
 }
 
-Entry TranspositionTable::probe(Board* b, int depth) {
+Entry TranspositionTable::probe(Board* b) {
   Entry entry = table[b->key % table.size()];
-  if (entry.key != b->key || depth > entry.depth) return {0, INVALID, -1};
+  if (entry.key != b->key) return {0, INVALID, -1};
   return entry;
 }

@@ -4,40 +4,47 @@
 #include "engine.hpp"
 
 using namespace std;
-counting_semaphore<8> available(8);
 
 void runalphabetat(Board board, int depth, int* ret, TranspositionTable* t,
-                   atomic<bool>* exit) {
-  *ret = alphabetat(&board, depth, INT32_MIN, INT32_MAX, t, exit);
-  available.release();
+                   atomic<bool>* exit, counting_semaphore<3>* available) {
+  *ret = -alphabetat(&board, depth, SMALL, -SMALL, t, exit);
+  // cerr << "Releasing" << endl;
+
+  // available->release();
 }
 
 Move best_move_alphabeta_transpose_parallel(Board* board, int depth,
                                             TranspositionTable* tr,
                                             atomic<bool>* exit) {
-  int color = board->white ? 1 : -1;
+  // Move list
   Move move_list[256];
-  int best = INT32_MIN;
-  Move best_move;
   int num_moves = board->getMoveList(move_list);
+
+  // Threading vars
   vector<std::thread> threads;
   int futures[num_moves];
+  counting_semaphore<3> available(3);
+
+  // Create a thread for each move.
   for (int i = 0; i < num_moves; i++) {
     Board b = board->doMove(&move_list[i]);
-    available.acquire();
-    threads.push_back(
-        std::thread(runalphabetat, b, depth - 1, &futures[i], tr, exit));
+    // cerr << "Trying to acquire!" << endl;
+    // available.acquire();
+    // cerr << "I acquired!" << endl;
+
+    threads.push_back(std::thread(runalphabetat, b, depth - 1, &futures[i], tr,
+                                  exit, &available));
   }
 
+  Move best_move;
+  int bestScore = SMALL;
   for (int i = 0; i < num_moves; i++) {
     threads[i].join();
-    int data = futures[i];
-    int eval = data * color;
-    if (eval > best) {
-      best = eval;
+    int score = futures[i];
+    if (bestScore < score) {
+      bestScore = score;
       best_move = move_list[i];
     }
   }
-  cerr << "Eval: " << best << endl;
   return best_move;
 }

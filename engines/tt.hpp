@@ -21,6 +21,6 @@ class TranspositionTable {
 
  public:
   TranspositionTable();
-  Entry probe(Board* b, int depth);
+  Entry probe(Board* b);
   void save(Board* b, int score, int depth, Move move);
 };
