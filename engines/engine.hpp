@@ -5,7 +5,6 @@
 #include <fstream>
 #include <future>
 #include <iostream>
-#include <semaphore>
 #include <sstream>
 #include <thread>
 #include <utility>

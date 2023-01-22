@@ -1,12 +1,11 @@
 
-#include <semaphore>
 
 #include "engine.hpp"
 
 using namespace std;
 
 void runalphabetat(Board board, int depth, int* ret, TranspositionTable* t,
-                   atomic<bool>* exit, counting_semaphore<3>* available,
+                   atomic<bool>* exit,
                    int alpha, int beta) {
   *ret = -alphabetat(&board, depth, alpha, beta, t, exit);
   // cerr << "Releasing" << endl;
@@ -23,12 +22,11 @@ MoveEval best_move_alphabeta_transpose_parallel(Board* board, int depth,
   Move* start = move_list;
   Move* end = board->getMoveList(move_list);
 
-  int num_moves = (end - start) / sizeof(Move);
+  int num_moves = end - start;
 
   // Threading vars
   vector<std::thread> threads;
   int futures[num_moves];
-  counting_semaphore<3> available(3);
 
   // Create a thread for each move.
   int i = 0;
@@ -37,8 +35,9 @@ MoveEval best_move_alphabeta_transpose_parallel(Board* board, int depth,
     child.doMove(*start);
 
     threads.push_back(std::thread(runalphabetat, child, depth - 1, &futures[i],
-                                  tr, exit, &available, alpha, beta));
+                                  tr, exit, alpha, beta));
     i++;
+    start++;
   }
 
   Move best_move = *start;

@@ -10,10 +10,13 @@ void Entry::save(uint32_t key, int score, uint16_t depth, Move move) {
 }
 
 TranspositionTable::TranspositionTable() {
-  cerr << "error here" << endl;
+  table = new Entry[SIZE];
   for (int i = 0; i < SIZE; i++) {
     table[i] = {0, INVALID, 0, 0};
   }
+}
+TranspositionTable::~TranspositionTable() {
+  delete table;
 }
 void TranspositionTable::save(Board* b, int score, uint16_t depth, Move move) {
   Entry* e = &table[b->key % SIZE];

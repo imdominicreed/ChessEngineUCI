@@ -46,41 +46,40 @@ int alphabetat(Board* board, int depth, int alpha, int beta,
   Move move_list[256];
   Move* start = move_list;
   Move* end = board->getMoveList(move_list);
-
-  // Root Node Check
+   // Root Node Check
   if (end == nullptr) return BIG;
-  if (depth == 0) eval(board);  // return Quiesce(board, alpha, beta, t, 0);
+  if (depth == 0) return eval(board);  // return Quiesce(board, alpha, beta, t, 0);
 
   // Table check
-  Entry entry = t->probe(board);
-  Move best_move;
+  // Entry entry = t->probe(board);
+  // Move best_move;
   int best_score = SMALL;
-  if (entry.score != INVALID && entry.depth <= depth) return entry.score;
+  // if (entry.score != INVALID && entry.depth <= depth) return entry.score;
 
   // Null move
-  if (depth >= 3 && !board->inCheck()) {
-    board->turn = (Color)(board->turn ^ 1);
-    int score = -alphabetat(board, depth - 3, -beta, -beta + 1, t, exit);
-    board->turn = (Color)(board->turn ^ 1);
-    if (score >= beta) return beta;
-  }
+  // if (depth >= 3 && !board->inCheck()) {
+  //   board->turn = (Color)(board->turn ^ 1);
+  //   int score = -alphabetat(board, depth - 3, -beta, -beta + 1, t, exit);
+  //   board->turn = (Color)(board->turn ^ 1);
+  //   if (score >= beta) return beta;
+  // }
 
-  if (entry.score != INVALID) {
-    best_move = entry.move;
+  // if (entry.score != INVALID) {
+  //   best_move = entry.move;
 
-    UndoMove undo = board->doMove(best_move);
-    best_score = -alphabetat(board, depth - 1, -beta, -alpha, t, exit);
-    board->undoMove(undo);
+  //   UndoMove undo = board->doMove(best_move);
+  //   best_score = -alphabetat(board, depth - 1, -beta, -alpha, t, exit);
+  //   board->undoMove(undo);
 
-    alpha = max(alpha, best_score);
-    if (alpha >= beta) return best_score;
-  }
+  //   alpha = max(alpha, best_score);
+  //   if (alpha >= beta) return best_score;
+  // }
 
-  move_sort(start, end, board);
+  // move_sort(start, end, board);
 
   // Search child Nodes
   while (start != end) {
-    if (*start == entry.move) continue;
+    // if (*start == entry.move) continue;
     // Do move
     UndoMove undo = board->doMove(*start);
     int score = -alphabetat(board, depth - 1, -beta, -alpha, t, exit);
@@ -96,6 +95,6 @@ int alphabetat(Board* board, int depth, int alpha, int beta,
     }
     start++;
   }
-  t->save(board, best_score, depth, best_move);
+  // t->save(board, best_score, depth, best_move);
   return best_score;
 }

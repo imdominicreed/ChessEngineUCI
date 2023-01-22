@@ -1,5 +1,4 @@
 
-#include <semaphore>
 
 #include "engine.hpp"
 
@@ -14,8 +13,6 @@ void run_ids(Board* board, Move* best_move, atomic<bool>* exit) {
   int beta = -SMALL;
   while (!exit->load()) {
     nodes = 0;
-    cerr << "Error here" << endl;
-
     MoveEval move_eval = best_move_alphabeta_transpose_parallel(
         board, i, &tr, exit, alpha, beta);
 
@@ -31,7 +28,7 @@ void run_ids(Board* board, Move* best_move, atomic<bool>* exit) {
     if (exit->load()) return;
 
     cerr << "Searched " << i << " Nodes searched: " << nodes
-         << " Alpha: " << alpha << " Beta: " << beta << endl;
+         << " Alpha: " << alpha << " Beta: " << beta << " Eval: " << eval << endl;
     *best_move = move;
     i++;
   }

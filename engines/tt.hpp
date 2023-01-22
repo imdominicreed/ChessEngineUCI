@@ -18,10 +18,11 @@ struct Entry {
 };
 class TranspositionTable {
  private:
-  Entry table[SIZE];
+  Entry *table;
 
  public:
   TranspositionTable();
+  ~TranspositionTable();
   Entry probe(Board* b);
   void save(Board* b, int score, uint16_t depth, Move move);
 };

@@ -21,7 +21,7 @@ void insertionSort(int* score, Move* array, int n) {
 }
 
 void move_sort(Move* start, Move* end, Board* board) {
-  int n = (end - start) / sizeof(Move);
+  int n = end - start;
   int score[n];
   for (int i = 0; i < n; i++) {
     PieceType victim = board->getPieceType(to(start[i]));
