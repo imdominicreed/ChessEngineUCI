@@ -16,6 +16,5 @@ while total != 100 and game:
         print("fen:", game.headers["FEN"], list(
             game.mainline_moves())[0].uci(), result.move.uci())
     game = chess.pgn.read_game(pgn)
-    print(total)
 print(correct/total*100)
 engine.quit()

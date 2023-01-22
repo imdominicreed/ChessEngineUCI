@@ -1,2 +1,2 @@
 #!/bin/sh
-/Users/domino/Documents/Projects/ChessEngineUCI/build/uci 2> /Users/domino/Documents/Projects/ChessEngineUCI/err
+/Users/domino/Documents/Projects/ChessEngineUCI/build/uci 2> /dev/null
