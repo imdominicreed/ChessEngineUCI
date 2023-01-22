@@ -10,16 +10,29 @@ using namespace std;
 void run_ids(Board* board, Move* best_move, atomic<bool>* exit) {
   TranspositionTable tr;
   int i = 1;
-
+  int alpha = SMALL;
+  int beta = -SMALL;
   while (!exit->load()) {
-    cerr << "Searching " << i << endl;
-    Move new_best_move =
-        best_move_alphabeta_transpose_parallel(board, i, &tr, exit);
+    nodes = 0;
+    cerr << "Error here" << endl;
 
-    if (exit->load()) {
-      return;
+    MoveEval move_eval = best_move_alphabeta_transpose_parallel(
+        board, i, &tr, exit, alpha, beta);
+
+    int eval = move_eval.eval;
+    Move move = move_eval.move;
+    if (eval <= alpha || eval >= beta) {
+      alpha = SMALL;
+      beta = -SMALL;
+      cerr << "Fell out of window researching " << i << endl;
+      continue;
     }
-    *best_move = new_best_move;
+
+    if (exit->load()) return;
+
+    cerr << "Searched " << i << " Nodes searched: " << nodes
+         << " Alpha: " << alpha << " Beta: " << beta << endl;
+    *best_move = move;
     i++;
   }
 }
@@ -28,6 +41,7 @@ Move ids_split(Board* board, int time) {
   Move best_move;
   atomic<bool> exit;
   exit.store(false);
+
   thread ids_thread(run_ids, board, &best_move, &exit);
   this_thread::sleep_for(chrono::milliseconds(time));
   cerr << "Exiting" << endl;

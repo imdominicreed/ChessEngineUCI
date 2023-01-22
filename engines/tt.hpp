@@ -7,20 +7,21 @@
 #include "../ChessBoardAPI/board/board.hpp"
 
 const int INVALID = INT32_MIN + 1;
+const int SIZE = 1 << 20;
 
 struct Entry {
-  unsigned long long key;
+  uint32_t key;
   int score;
-  int depth;
+  uint16_t depth;
   Move move;
-  void save(unsigned long long key, int score, int depth, Move move);
+  void save(uint32_t key, int score, uint16_t depth, Move move);
 };
 class TranspositionTable {
  private:
-  std::vector<Entry> table;
+  Entry table[SIZE];
 
  public:
   TranspositionTable();
   Entry probe(Board* b);
-  void save(Board* b, int score, int depth, Move move);
+  void save(Board* b, int score, uint16_t depth, Move move);
 };

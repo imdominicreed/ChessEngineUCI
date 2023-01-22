@@ -25,30 +25,14 @@ ftype best_move;
 Move next_move(Board board, int depth) { return best_move(&board, depth); }
 
 int main(int argc, char** argv) {
-  // if (argc != 2) {
-  //   printf(
-  //       "Pass args:\n"
-  //       "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
-  //   return -1;
-  // }
-  // if (!strcmp("pminmax", argv[1]))
-  //   best_move = best_move_parallelminmax;
-  // else if (!strcmp("minmax", argv[1]))
-  //   best_move = best_move_minmax;
-  // else if (!strcmp("alphabeta", argv[1]))
-  //   best_move = best_move_alphabeta;
-  // else if (!strcmp("palphabeta", argv[1]))
-  //   best_move = best_move_parallelalphabeta;
-  // else if (!strcmp("talphabeta", argv[1]))
-  //   best_move = best_move_alphabeta_transpose;
-  // else if (!strcmp("tpalphabeta", argv[1]))
-  //   best_move = best_move_alphabeta_transpose_parallel;
-  // else {
-  //   printf(
-  //       "Pass args:\n"s
-  //       "pminmax\nminmax\nalphabeta\npalphabeta\ntalphabeta\ntpalphabeta\n");
-  //   return -1;
-  // }
+  int debug = 0;
+  if (debug) {
+    Board b = import_fen(
+        "rnbqkbnr/pppp1ppp/8/8/4p3/N4N2/PPPPPPPP/R1BQKB1R w KQkq - 0 3");
+    cerr << "Eval: " << eval(&b);
+
+    return 0;
+  }
 
   best_move = ids_split;
   Board board;
@@ -92,12 +76,12 @@ int main(int argc, char** argv) {
         char arr[5];
         strcpy(arr, spl[i].c_str());
         Move m = board.moveFromStr(arr);
-        cerr << "Move: " << m.toString() << endl;
-        board = board.doMove(&m);
+        // cerr << "Move: " << m.toString() << endl;
+        board.doMove(m);
       }
     } else if (spl[0] == "go") {
-      Move best_move = next_move(board, 3000);
-      cout << "bestmove " << best_move.toString() << endl;
+      Move best_move = next_move(board, 5000);
+      cout << "bestmove " << to_string(best_move) << endl;
 
     } else
       cerr << "unknown " << line << endl;

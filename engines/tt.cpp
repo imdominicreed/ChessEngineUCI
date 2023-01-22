@@ -1,7 +1,7 @@
 #include "tt.hpp"
 using namespace std;
 
-void Entry::save(unsigned long long key, int score, int depth, Move move) {
+void Entry::save(uint32_t key, int score, uint16_t depth, Move move) {
   // racy
   this->key = key;
   this->depth = depth;
@@ -10,23 +10,18 @@ void Entry::save(unsigned long long key, int score, int depth, Move move) {
 }
 
 TranspositionTable::TranspositionTable() {
-  Board b = {};
-  table.resize(100000007, {0, INVALID, -1});
-}
-void TranspositionTable::save(Board* b, int score, int depth, Move move) {
-  Entry* e = &table[b->key % table.size()];
-  if (depth < e->depth) e->save(b->key, score, depth, move);
-}
-string print_vector(vector<Move> moves) {
-  string str;
-  for (Move m : moves) {
-    str += m.toString() + " ";
+  cerr << "error here" << endl;
+  for (int i = 0; i < SIZE; i++) {
+    table[i] = {0, INVALID, 0, 0};
   }
-  return str;
+}
+void TranspositionTable::save(Board* b, int score, uint16_t depth, Move move) {
+  Entry* e = &table[b->key % SIZE];
+  if (depth < e->depth) e->save(b->key, score, depth, move);
 }
 
 Entry TranspositionTable::probe(Board* b) {
-  Entry entry = table[b->key % table.size()];
-  if (entry.key != b->key) return {0, INVALID, -1};
+  Entry entry = table[b->key % SIZE];
+  if (entry.key != b->key) return {0, INVALID, 0, 1};
   return entry;
 }
