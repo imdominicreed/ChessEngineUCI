@@ -4,19 +4,13 @@
 
 using namespace std;
 
-void runalphabetat(Board board, int depth, int* ret, TranspositionTable* t,
-                   atomic<bool>* exit,
-                   int alpha, int beta) {
-  *ret = -alphabetat(&board, depth, alpha, beta, t, exit);
-  // cerr << "Releasing" << endl;
-
+void runalphabetat(Board board, int depth, int* ret, int alpha, int beta) {
+  *ret = -alphabetat(&board, depth, alpha, beta);
   // available->release();
 }
 
 MoveEval best_move_alphabeta_transpose_parallel(Board* board, int depth,
-                                                TranspositionTable* tr,
-                                                atomic<bool>* exit, int alpha,
-                                                int beta) {
+                                                int alpha, int beta) {
   // Move list
   Move move_list[256];
   Move* start = move_list;
@@ -34,8 +28,8 @@ MoveEval best_move_alphabeta_transpose_parallel(Board* board, int depth,
     Board child = *board;
     child.doMove(*start);
 
-    threads.push_back(std::thread(runalphabetat, child, depth - 1, &futures[i],
-                                  tr, exit, alpha, beta));
+    threads.push_back(
+        std::thread(runalphabetat, child, depth - 1, &futures[i], alpha, beta));
     i++;
     start++;
   }
@@ -45,6 +39,7 @@ MoveEval best_move_alphabeta_transpose_parallel(Board* board, int depth,
   for (int i = 0; i < num_moves; i++) {
     threads[i].join();
     int score = futures[i];
+    // cerr << to_string(move_list[i]) << ": " << score << endl;
     if (bestScore < score) {
       bestScore = score;
       best_move = move_list[i];

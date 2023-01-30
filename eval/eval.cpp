@@ -77,7 +77,7 @@ int eval(Board* board) {
           eval += 900;
           break;
         case King:
-          eval += king_score[mirror_score[sq]];
+          eval += 100000 + king_score[mirror_score[sq]];
           break;
         default:
           break;
@@ -100,7 +100,7 @@ int eval(Board* board) {
           eval -= 900;
           break;
         case King:
-          eval -= king_score[sq];
+          eval -= 100000 + king_score[sq];
           break;
         default:
           break;

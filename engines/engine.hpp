@@ -1,5 +1,7 @@
-#include <stdint.h>
 #pragma once
+
+#include <stdint.h>
+
 #include <algorithm>  // std::max
 #include <atomic>
 #include <fstream>
@@ -21,20 +23,21 @@ const int checkmate = 1000000;
 const int SMALL = -100000000;
 const int BIG = 10000000;
 extern int nodes;
+extern int tbl_hits;
+extern std::atomic<bool> end_time;
+extern TranspositionTable tt;
 
 struct MoveEval {
   Move move;
   int eval;
 };
 
-int alphabetat(Board* board, int depth, int alpha, int beta,
-               TranspositionTable* t, std::atomic<bool>* exit);
+int alphabetat(Board* board, int depth, int alpha, int beta);
 int alphabeta(Board* board, int depth, int alpha, int beta);
 int minmax(Board* board, int depth);
 MoveEval best_move_alphabeta_transpose_parallel(Board* board, int depth,
-                                                TranspositionTable* tr,
-                                                std::atomic<bool>* exit,
                                                 int alpha, int beta);
+MoveEval negamax(Board* b, int depth);
 Move best_move_parallelminmax(Board* board, int depth);
 Move best_move_minmax(Board* board, int depth);
 Move best_move_alphabeta(Board* board, int depth);
