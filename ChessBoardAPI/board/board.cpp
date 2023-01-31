@@ -37,6 +37,7 @@ char* strrev(char* str) {
 
 Board import_fen(char* str) {
   Board ret = {};
+  ret.history[0] = 0;
   bitboard mask = 1ULL << 63;
   char* copy = strdup(str);
   const char del[2] = "/";
@@ -104,6 +105,7 @@ Board import_fen(char* str) {
   char* en = castling + i + 1;
   if (en[0] != '-') ret.en_passant = (en[0] - 'a') + ((en[1] - '1') * 8);
   ret.key = 0;
+  ret.pointer = 1;
   return ret;
 }
 inline void Board::makeEmptySquare(int sq, PieceType piece, Color color) {
@@ -151,6 +153,7 @@ void Board::createPiece(int sq, PieceType piece) {
 
 void Board::undoMove(UndoMove move) {
   // move_list.pop_back();
+  pointer--;
   int to_sq = to(move.move);
   int from_sq = from(move.move);
   MoveType move_type = type(move.move);
@@ -295,6 +298,7 @@ UndoMove Board::doMove(Move move) {
 
   turn = (Color)(turn ^ 1);
   key ^= z.turn;
+  history[pointer++] = key;
   return undo;
 }
 
@@ -391,5 +395,6 @@ Move Board::moveFromStr(std::string move) {
     if (move == to_string(*curr)) return *curr;
     curr++;
   }
+  std::cerr << "error" << std::endl;
   return (Move)0;
 }
