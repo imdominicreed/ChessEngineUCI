@@ -70,8 +70,10 @@ bitboard Board::getAttackBoard(Color turn) {
   bitboard attacks = get_king_attacks(k);
   bitboard my_pieces = colorPiecesBB[turn];
   bitboard all_pieces = colorPiecesBB[BLACK] | colorPiecesBB[WHITE];
-  attacks |= get_rooks_attack(my_pieces & (pieceTypeBB[Queen] | pieceTypeBB[Rook]), all_pieces);
-  attacks |= get_bishop_attack(my_pieces & (pieceTypeBB[Queen] | pieceTypeBB[Bishop]), all_pieces);
+  attacks |= get_rooks_attack(
+      my_pieces & (pieceTypeBB[Queen] | pieceTypeBB[Rook]), all_pieces);
+  attacks |= get_bishop_attack(
+      my_pieces & (pieceTypeBB[Queen] | pieceTypeBB[Bishop]), all_pieces);
   attacks |= get_knight_attack(my_pieces & pieceTypeBB[Knight]);
   if (turn == WHITE)
     attacks |= get_white_pawn_attack(my_pieces & pieceTypeBB[Pawn]);
@@ -107,7 +109,7 @@ Move *get_black_pawn_moves(bitboard pieces, bitboard opp_pieces,
   if (mask & FIRST_COLUMN) attacks = 0b100;
   if (mask & LAST_COLUMN) attacks = 0b01;
   attacks <<= src - 9;
-  attacks &= opp_pieces | (1ULL << en_passant) ;
+  attacks &= opp_pieces | (1ULL << en_passant);
   // Sets up movement.
   if (king & attacks) return nullptr;
   bitboard movement = mask >> 8;

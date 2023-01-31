@@ -86,8 +86,18 @@ struct Board {
   uint8_t castling;
   Color turn;
   uint8_t en_passant;
+  uint64_t history[256];
+  int pointer;
 
   inline void move_piece(int from, int to, PieceType piece);
+  inline bool isStaleMate() {
+    int count = 0;
+    for (int i = 0; i < pointer; i++) {
+      if (key == history[i]) count++;
+      if (count == 3) return true;
+    }
+    return false;
+  }
   std::string toString();
   void startBoard();
   UndoMove doMove(Move move);
