@@ -6,14 +6,15 @@ using namespace std;
 
 #include <unistd.h>
 TranspositionTable tt;
-std::atomic<bool> end_time;
 
 void run_ids(Board* board, Move* best_move) {
   tt = TranspositionTable();
   int i = 1;
   int alpha = SMALL;
   int beta = -SMALL;
-  while (!end_time.load()) {
+  cerr << out_of_time() << endl;
+
+  while (!out_of_time()) {
     nodes = 0;
     tbl_hits = 0;
     MoveEval move_eval =
@@ -29,7 +30,7 @@ void run_ids(Board* board, Move* best_move) {
       continue;
     }
 
-    if (end_time.load()) return;
+    if (out_of_time()) return;
 
     cerr << "Searched " << i << " Nodes searched: " << nodes
          << " Eval: " << eval << " Table hits: " << tbl_hits
@@ -55,14 +56,10 @@ void run_ids(Board* board, Move* best_move) {
   }
 }
 
-Move ids_split(Board* board, int time) {
+Move ids_split(Board* board) {
   Move best_move;
-  end_time.store(false);
 
-  thread ids_thread(run_ids, board, &best_move);
-  this_thread::sleep_for(chrono::milliseconds(3'000));
-  cerr << "Exiting" << endl;
-  end_time.store(true);
-  ids_thread.join();
+  run_ids(board, &best_move);
+  cout << "bestmove " << to_string(best_move) << endl;
   return best_move;
 }
