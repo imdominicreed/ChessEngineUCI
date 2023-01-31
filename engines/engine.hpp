@@ -24,7 +24,6 @@ const int SMALL = -100000000;
 const int BIG = 10000000;
 extern int nodes;
 extern int tbl_hits;
-extern std::atomic<bool> end_time;
 extern TranspositionTable tt;
 
 struct MoveEval {
@@ -44,6 +43,10 @@ Move best_move_alphabeta(Board* board, int depth);
 Move best_move_parallelalphabeta(Board* board, int depth);
 Move best_move_alphabeta_transpose(Board* board, int depth);
 
-typedef Move (*ftype)(Board*, int);
-Move ids_split(Board* board, int time);
+Move ids_split(Board* board);
 Move lazy_smp(Board* board, int time);
+
+void set_remaining_time(int time, int num_moves);
+bool out_of_time();
+void check_time();
+void set_move_time(int time);

@@ -42,8 +42,12 @@ int nodes;
 int tbl_hits;
 int alphabetat(Board* board, int depth, int alpha, int beta) {
   // Stop Searching
-  if (end_time.load()) return -1;
+  if ((nodes & 1023) == 1023) {
+    check_time();
+  }
+  if (out_of_time()) return -1;
   nodes++;
+  if (board->isStaleMate()) return 0;
   // Init Move list
   Move move_list[256];
   Move* start = move_list;
@@ -94,7 +98,10 @@ int alphabetat(Board* board, int depth, int alpha, int beta) {
     UndoMove undo = board->doMove(*start);
     int score = -alphabetat(board, depth - 1, -beta, -alpha);
     board->undoMove(undo);
-
+    if (score > checkmate)
+      score--;
+    else if (score < -checkmate)
+      score++;
     if (best_score < score) {
       best_score = score;
       best_move = *start;
