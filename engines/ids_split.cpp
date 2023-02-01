@@ -8,11 +8,12 @@ using namespace std;
 TranspositionTable tt;
 
 void run_ids(Board* board, Move* best_move) {
-  tt = TranspositionTable();
+  cerr << "pt: " << tt.table << endl;
+
+  tt.clear();
   int i = 1;
   int alpha = SMALL;
   int beta = -SMALL;
-  cerr << out_of_time() << endl;
 
   while (!out_of_time()) {
     nodes = 0;

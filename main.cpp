@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     string token;
     ss >> command;
     if (command == "uci") {
-      cout << "id name ids_split engine" << endl;
+      cout << "id name 1024 engine" << endl;
       cout << "id author dominic\n" << endl;
       cout << "uciok" << endl;
 
