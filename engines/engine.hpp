@@ -51,3 +51,4 @@ void set_remaining_time(int time, int num_moves);
 bool out_of_time();
 void check_time();
 void set_move_time(int time);
+int64_t get_time_searched();

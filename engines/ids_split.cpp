@@ -35,22 +35,17 @@ void run_ids(Board* board, Move* best_move) {
 
     if (out_of_time()) return;
 
-    cerr << "Searched " << i << " Overwrite " << overwrite
-         << " Nodes searched: " << nodes << " Eval: " << eval
-         << " Table hits: " << tbl_hits << " pv: " << to_string(move)
-         << " Mini eval: ";
-
+    cout << "info depth " << i << " time " << get_time_searched() << " nodes "
+         << nodes << " pv " << to_string(move);
     Entry e;
     vector<UndoMove> stack;
     UndoMove undo = board->doMove(move);
-    int mv_depth = i - 1;
-    while ((e = tt.probe(board)).depth() != INVALID_DEPTH && mv_depth >= 0) {
-      cerr << to_string(e.move()) << " " << e.depth() << " ";
+    int pv_depth = i - 1;
+    while ((e = tt.probe(board)).depth() != INVALID_DEPTH && pv_depth >= 0) {
+      cout << " " << to_string(e.move());
       stack.push_back(board->doMove(e.move()));
-      mv_depth--;
+      pv_depth--;
     }
-    cerr << e.depth();
-    cerr << endl;
 
     while (stack.size()) {
       board->undoMove(stack.back());
@@ -58,7 +53,14 @@ void run_ids(Board* board, Move* best_move) {
     }
     board->undoMove(undo);
     *best_move = move;
-    i++;
+
+    cout << " score ";
+    if (abs(eval) >= CHECKMATE)
+      cout << "mate " << (eval >= 0 ? 1 : -1) * (BIG - abs(eval));
+    else
+      cout << "cp " << eval;
+
+    cout << " hashfull " << (tt.hash_full * 1000) / (tt.SIZE * 8) << endl;
   }
 }
 

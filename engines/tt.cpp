@@ -20,6 +20,7 @@ TranspositionTable::TranspositionTable() {
     table[i] = new Entry[CLUSTER_SIZE];
     for (int j = 0; j < CLUSTER_SIZE; j++) table[i][j] = INVALID_ENTRY;
   }
+  hash_full = 0;
 }
 TranspositionTable::~TranspositionTable() { delete table; }
 void TranspositionTable::save(Board* b, int score, uint16_t depth, Move move,
@@ -28,8 +29,12 @@ void TranspositionTable::save(Board* b, int score, uint16_t depth, Move move,
   int i = 0;
   while (i < CLUSTER_SIZE) {
     if (cluster[i].depth() == INVALID_DEPTH || (cluster[i].key() == b->key)) {
-      if (cluster[i].depth() == INVALID_DEPTH || cluster[i].depth() < depth)
+      if (cluster[i].depth() == INVALID_DEPTH) {
         cluster[i].save(b->key, score, depth, move, type);
+        hash_full++;
+      } else if (cluster[i].depth() < depth)
+        cluster[i].save(b->key, score, depth, move, type);
+
       return;
     }
     i++;
@@ -54,4 +59,5 @@ void TranspositionTable::clear() {
   for (int i = 0; i < SIZE; i++) {
     for (int j = 0; j < CLUSTER_SIZE; j++) table[i][j] = INVALID_ENTRY;
   }
+  hash_full = 0;
 }
