@@ -1,3 +1,4 @@
+#include <cassert>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -19,17 +20,23 @@ struct Entry {
   inline int depth() { return ((data >> 32) & 0xFF); }
   inline Move move() { return (Move)(data >> 48); }
   inline NodeType node_type() { return (NodeType)((data >> 40) & 0xFF); };
+  inline bool invalid_entry() { return depth() == INVALID_DEPTH; }
 };
 
 const Entry INVALID_ENTRY = {0, INVALID_DEPTH << 32};
 
-const int MB_SIZE = 512 * 1024 * 1024;
+const int MB_SIZE = 1 * 1024 * 1024;
+const int CLUSTER_SIZE = 8;
 
-const int SIZE = MB_SIZE / sizeof(Entry);
+const int SIZE = (MB_SIZE / sizeof(Entry)) / 8;
+
+struct Cluster {
+  Entry* line;
+};
 
 class TranspositionTable {
  public:
-  Entry* table;
+  Cluster* table;
 
   TranspositionTable();
   ~TranspositionTable();

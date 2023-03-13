@@ -1,6 +1,8 @@
 #include "tt.hpp"
 using namespace std;
 
+int overwrite;
+
 void Entry::save(uint64_t key, int score, uint8_t depth, Move move,
                  NodeType type) {
   uint64_t data = (score & 0x00000000FFFFFFFF);
@@ -21,14 +23,27 @@ TranspositionTable::TranspositionTable() {
 TranspositionTable::~TranspositionTable() { delete table; }
 void TranspositionTable::save(Board* b, int score, uint16_t depth, Move move,
                               NodeType type) {
-  Entry* e = &table[b->key % SIZE];
-  e->save(b->key, score, depth, move, type);
+  Cluster& clust = table[b->key % SIZE];
+  int i = 0;
+  while (i < CLUSTER_SIZE) {
+    if (clust.line[i].depth() == INVALID_DEPTH) {
+      clust.line[i].save(b->key, score, depth, move, type);
+      return;
+    }
+  }
+  clust.line[rand() % 6].save(b->key, score, depth, move, type);
 }
 
 Entry TranspositionTable::probe(Board* b) {
-  Entry entry = table[b->key % SIZE];
-  if ((entry.key ^ entry.data) != b->key) return INVALID_ENTRY;
-  return entry;
+  Cluster& clust = table[b->key % SIZE];
+
+  int i = 0;
+  while (i < CLUSTER_SIZE) {
+    Entry& entry = clust.line[i++];
+    if ((entry.key ^ entry.data) == b->key) return entry;
+  }
+
+  return INVALID_ENTRY;
 }
 
 void TranspositionTable::clear() {

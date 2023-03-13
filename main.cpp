@@ -1,3 +1,5 @@
+#include <sys/time.h>
+
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -16,11 +18,84 @@ using namespace std;
 const string startFEN =
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
+int run_perft(Board* b, int depth) {
+  Move move_list[256];
+  Move* start = move_list;
+  Move* end = b->getMoveList(move_list);
+
+  if (end == nullptr) return 0;
+  if (depth == 1) {
+    int legal_moves = 0;
+    while (start != end) {
+      UndoMove undo = b->doMove(*start);
+      if (!b->inCheck()) legal_moves++;
+      b->undoMove(undo);
+      start++;
+    }
+    return legal_moves;
+  }
+
+  Entry e = tt.probe(b);
+  if (e.depth() == depth) {
+    return e.score();
+  }
+
+  int states = 0;
+  while (start != end) {
+    UndoMove undo = b->doMove(*start);
+    states += run_perft(b, depth - 1);
+    b->undoMove(undo);
+    start++;
+  }
+
+  tt.save(b, states, depth, 0, NodeType::PV);
+
+  return states;
+}
+
+int get_times() {
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  return tp.tv_sec * 1000 + tp.tv_usec / 1000;
+}
+
+void perft(Board* b, int depth) {
+  tt.clear();
+  int start_time = get_times();
+  Move move_list[256];
+  Move* start = move_list;
+  Move* end = b->getMoveList(move_list);
+
+  if (end == nullptr) return;
+  int num_nodes = 0;
+
+  while (start != end) {
+    UndoMove undo = b->doMove(*start);
+    if (b->inCheck()) {
+      b->undoMove(undo);
+      start++;
+      continue;
+    }
+    int nodes = run_perft(b, depth - 1);
+    b->undoMove(undo);
+    num_nodes += nodes;
+    cout << to_string(*start) << ": " << nodes << endl;
+    start++;
+  }
+
+  float total_time = (get_times() - start_time) / 1000.0;
+
+  cout << endl << "Nodes searched: " << num_nodes << endl;
+  cerr << "info time " << total_time << " nps " << (int)(num_nodes / total_time)
+       << endl;
+}
+
 int main(int argc, char** argv) {
   init_tables();
   int moves;
   Board board;
   board.startBoard();
+  board = import_fen((char*)startFEN.c_str());
   string line;
   while (getline(cin, line)) {
     cerr << "recieve " << line << endl;
@@ -29,10 +104,10 @@ int main(int argc, char** argv) {
     string token;
     ss >> command;
     if (command == "uci") {
-      cout << "id name 1024 engine" << endl;
+      cout << "id name 1 engine" << endl;
       cout << "id author dominic\n" << endl;
       cout << "uciok" << endl;
-
+      cerr << "hash size " << MB_SIZE / (1024 * 1024) << endl;
       cerr << "uciok" << endl;
 
     } else if (command == "quit")
@@ -70,6 +145,7 @@ int main(int argc, char** argv) {
       cerr << board.toString() << endl;
     } else if (command == "go") {
       int wtime, btime, winc, binc, move_time = -1;
+      bool perf = false;
       while (ss >> token) {
         string num;
         ss >> num;
@@ -83,7 +159,12 @@ int main(int argc, char** argv) {
           binc = stoi(num);
         else if ("movetime" == token)
           move_time = stoi(num);
+        else if ("perft" == token) {
+          perft(&board, stoi(num));
+          perf = true;
+        }
       }
+      if (perf) continue;
       if (move_time != -1)
         set_move_time(move_time);
       else

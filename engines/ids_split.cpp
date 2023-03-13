@@ -8,15 +8,17 @@ using namespace std;
 TranspositionTable tt;
 
 void run_ids(Board* board, Move* best_move) {
-  cerr << "pt: " << tt.table << endl;
-
   tt.clear();
   int i = 1;
   int alpha = SMALL;
   int beta = -SMALL;
-
+  cerr << "cm: " << (BIG - 1) << endl;
   while (!out_of_time()) {
+    tt.clear();
+    cerr << i << endl;
     nodes = 0;
+    overwrite = 0;
+
     tbl_hits = 0;
     MoveEval move_eval =
         best_move_alphabeta_transpose_parallel(board, i, alpha, beta);
@@ -33,16 +35,19 @@ void run_ids(Board* board, Move* best_move) {
 
     if (out_of_time()) return;
 
-    cerr << "Searched " << i << " Nodes searched: " << nodes
-         << " Eval: " << eval << " Table hits: " << tbl_hits
-         << " pv: " << to_string(move) << " Mini eval: ";
+    cerr << "Searched " << i << " Overwrite " << overwrite
+         << " Nodes searched: " << nodes << " Eval: " << eval
+         << " Table hits: " << tbl_hits << " pv: " << to_string(move)
+         << " Mini eval: ";
 
     Entry e;
     vector<UndoMove> stack;
     UndoMove undo = board->doMove(move);
-    while ((e = tt.probe(board)).depth() != INVALID_DEPTH) {
+    int mv_depth = i - 1;
+    while ((e = tt.probe(board)).depth() != INVALID_DEPTH && mv_depth >= 0) {
       cerr << to_string(e.move()) << " " << e.depth() << " ";
       stack.push_back(board->doMove(e.move()));
+      mv_depth--;
     }
     cerr << e.depth();
     cerr << endl;

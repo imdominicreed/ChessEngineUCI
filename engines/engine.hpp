@@ -19,10 +19,11 @@
 #include "../eval/move_picker.hpp"
 #include "tt.hpp"
 
-const int checkmate = 1000000;
+const int CHECKMATE = 1000000;
 const int SMALL = -100000000;
 const int BIG = 10000000;
 extern int nodes;
+extern int overwrite;
 extern int tbl_hits;
 extern TranspositionTable tt;
 

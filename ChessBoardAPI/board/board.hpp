@@ -112,7 +112,7 @@ struct Board {
   void doWhiteCastle(int rook_src, int rook_dst, int king_src, int king_dst);
   void removeCastle(Move move);
   Move moveFromStr(std::string move);
-
+  bool currentCheck();
   void updateHash(int sq, PieceType piece, Color color);
   void updateMoveHash(int src, int dst, PieceType piece);
   void updateEnpassantHash(int src);
