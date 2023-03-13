@@ -52,7 +52,7 @@ int alphabetat(Board* board, int depth, int alpha, int beta) {
   if (end == nullptr) {
     return BIG;
   }
-  if (depth == 0) return eval(board);
+  if (depth == 0) return Quiesce(board, alpha, beta, -5);
 
   // Table check
   Entry entry = tt.probe(board);
