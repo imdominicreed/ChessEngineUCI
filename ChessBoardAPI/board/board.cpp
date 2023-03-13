@@ -198,7 +198,7 @@ UndoMove Board::doMove(Move move) {
 
   MoveType move_type = type(move);
   Color op_turn = (Color)(turn ^ 1);
-  // if(en_passant) key ^= z.en_passant[en_passant % 8];
+  if(en_passant) key ^= z.en_passant[en_passant % 8];
   en_passant = 0;
   PieceType piece;
   int castling_before;
@@ -358,6 +358,10 @@ bool Board::inCheck() {
   return getAttackBoard(turn) & getKing((Color)(turn ^ 1));
 }
 
+bool Board::currentCheck() {
+  return getAttackBoard((Color)(turn ^ 1)) & getKing(turn);
+}
+
 std::string Board::toString() {
   std::string s;
   std::string rev;
@@ -382,7 +386,7 @@ bool Board::operator==(const Board b) {
   for (int i = 0; i < 2; i++) {
     if (colorPiecesBB[i] != b.colorPiecesBB[i]) return false;
   }
-  return true;
+  return en_passant == b.en_passant;
 }
 
 bool Board::operator!=(const Board b) { return !(*this == b); }

@@ -101,7 +101,7 @@ inline Move *promote_pawn_moves(Move *move_list, int src, int dst,
 }
 
 Move *get_black_pawn_moves(bitboard pieces, bitboard opp_pieces,
-                           bitboard en_passant, Move *move_list, int src,
+                           uint8_t en_passant, Move *move_list, int src,
                            bitboard king) {
   // Sets up attacks.
   bitboard mask = 1ULL << src;
@@ -109,7 +109,9 @@ Move *get_black_pawn_moves(bitboard pieces, bitboard opp_pieces,
   if (mask & FIRST_COLUMN) attacks = 0b100;
   if (mask & LAST_COLUMN) attacks = 0b01;
   attacks <<= src - 9;
-  attacks &= opp_pieces | (1ULL << en_passant);
+
+  attacks &= opp_pieces | (en_passant ? (1ULL << en_passant) : 0);
+
   // Sets up movement.
   if (king & attacks) return nullptr;
   bitboard movement = mask >> 8;
@@ -149,7 +151,7 @@ inline Move *get_white_pawn_moves(bitboard pieces, bitboard opp_pieces,
   if (mask & FIRST_COLUMN) attacks = 0b100;
   if (mask & LAST_COLUMN) attacks = 0b1;
   attacks <<= src + 7;
-  attacks &= opp_pieces | (1ULL << en_passant);
+  attacks &= opp_pieces | (en_passant ? (1ULL << en_passant) : 0);
   // Sets up movement.
   if (attacks & king) return nullptr;
   bitboard movement = mask << 8;
