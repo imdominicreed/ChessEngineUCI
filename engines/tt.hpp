@@ -7,7 +7,6 @@
 
 #include "../ChessBoardAPI/board/board.hpp"
 
-const int SIZE = 1 << 20;
 const uint64_t INVALID_DEPTH = 255;
 
 enum class NodeType { PV = 0, Cut, All };
@@ -24,13 +23,17 @@ struct Entry {
 
 const Entry INVALID_ENTRY = {0, INVALID_DEPTH << 32};
 
+const int MB_SIZE = 512 * 1024 * 1024;
+
+const int SIZE = MB_SIZE / sizeof(Entry);
+
 class TranspositionTable {
- private:
+ public:
   Entry* table;
 
- public:
   TranspositionTable();
   ~TranspositionTable();
   Entry probe(Board* b);
   void save(Board* b, int score, uint16_t depth, Move move, NodeType type);
+  void clear();
 };

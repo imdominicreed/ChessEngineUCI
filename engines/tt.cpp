@@ -1,7 +1,6 @@
 #include "tt.hpp"
 using namespace std;
 
-
 void Entry::save(uint64_t key, int score, uint8_t depth, Move move,
                  NodeType type) {
   uint64_t data = (score & 0x00000000FFFFFFFF);
@@ -30,4 +29,10 @@ Entry TranspositionTable::probe(Board* b) {
   Entry entry = table[b->key % SIZE];
   if ((entry.key ^ entry.data) != b->key) return INVALID_ENTRY;
   return entry;
+}
+
+void TranspositionTable::clear() {
+  for (int i = 0; i < SIZE; i++) {
+    table[i] = INVALID_ENTRY;
+  }
 }
