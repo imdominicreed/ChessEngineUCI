@@ -1,3 +1,5 @@
+#include <sys/time.h>
+
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -51,8 +53,15 @@ int run_perft(Board* b, int depth) {
   return states;
 }
 
+int get_times() {
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  return tp.tv_sec * 1000 + tp.tv_usec / 1000;
+}
+
 void perft(Board* b, int depth) {
   tt.clear();
+  int start_time = get_times();
   Move move_list[256];
   Move* start = move_list;
   Move* end = b->getMoveList(move_list);
@@ -69,13 +78,16 @@ void perft(Board* b, int depth) {
     }
     int nodes = run_perft(b, depth - 1);
     b->undoMove(undo);
-
     num_nodes += nodes;
     cout << to_string(*start) << ": " << nodes << endl;
     start++;
   }
 
+  float total_time = (get_times() - start_time) / 1000.0;
+
   cout << endl << "Nodes searched: " << num_nodes << endl;
+  cerr << "info time " << total_time << " nps " << (int)(num_nodes / total_time)
+       << endl;
 }
 
 int main(int argc, char** argv) {
