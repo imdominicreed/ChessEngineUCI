@@ -12,11 +12,13 @@ void run_ids(Board* board, Move* best_move) {
   int i = 1;
   int alpha = SMALL;
   int beta = -SMALL;
-  cerr << "cm: " << (BIG - 1) << endl;
+  overwrite = 0;
 
+  cerr << "cm: " << (BIG - 1) << endl;
   while (!out_of_time()) {
     cerr << i << endl;
     nodes = 0;
+
     tbl_hits = 0;
     MoveEval move_eval =
         best_move_alphabeta_transpose_parallel(board, i, alpha, beta);
@@ -33,9 +35,10 @@ void run_ids(Board* board, Move* best_move) {
 
     if (out_of_time()) return;
 
-    cerr << "Searched " << i << " Nodes searched: " << nodes
-         << " Eval: " << eval << " Table hits: " << tbl_hits
-         << " pv: " << to_string(move) << " Mini eval: ";
+    cerr << "Searched " << i << " Overwrite " << overwrite
+         << " Nodes searched: " << nodes << " Eval: " << eval
+         << " Table hits: " << tbl_hits << " pv: " << to_string(move)
+         << " Mini eval: ";
 
     Entry e;
     vector<UndoMove> stack;

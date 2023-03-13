@@ -13,26 +13,27 @@ const uint64_t INVALID_DEPTH = 255;
 enum class NodeType { PV = 0, Cut, All };
 
 struct Entry {
-  uint64_t key;
+  uint64_t xor_key;
   uint64_t data;
-  Board b;
-  void save(uint64_t key, int score, uint8_t depth, Move move, NodeType type,
-            Board* b);
+  void save(uint64_t key, int score, uint8_t depth, Move move, NodeType type);
   inline int score() { return data & 0xFFFFFFFF; }
   inline int depth() { return ((data >> 32) & 0xFF); }
   inline Move move() { return (Move)(data >> 48); }
   inline NodeType node_type() { return (NodeType)((data >> 40) & 0xFF); };
+  inline bool invalid_entry() { return depth() == INVALID_DEPTH; }
+  inline uint64_t key() { return xor_key ^ data; }
 };
 
 const Entry INVALID_ENTRY = {0, INVALID_DEPTH << 32};
 
-const int MB_SIZE = 1024 * 1024 * 1024;
+const int MB_SIZE = 1 * 1024 * 1024;
+const int CLUSTER_SIZE = 8;
 
-const int SIZE = MB_SIZE / sizeof(Entry);
+const int SIZE = (MB_SIZE / sizeof(Entry)) / 8;
 
 class TranspositionTable {
  public:
-  Entry* table;
+  Entry** table;
 
   TranspositionTable();
   ~TranspositionTable();
