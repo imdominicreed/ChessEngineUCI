@@ -12,12 +12,12 @@ void run_ids(Board* board, Move* best_move) {
   int i = 1;
   int alpha = SMALL;
   int beta = -SMALL;
+  overwrite = 0;
+
   cerr << "cm: " << (BIG - 1) << endl;
   while (!out_of_time()) {
-    tt.clear();
     cerr << i << endl;
     nodes = 0;
-    overwrite = 0;
 
     tbl_hits = 0;
     MoveEval move_eval =
