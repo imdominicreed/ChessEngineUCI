@@ -29,11 +29,11 @@ const Entry INVALID_ENTRY = {0, INVALID_DEPTH << 32};
 const int MB_SIZE = 1 * 1024 * 1024;
 const int CLUSTER_SIZE = 8;
 
-const int SIZE = (MB_SIZE / sizeof(Entry)) / 8;
-
 class TranspositionTable {
  public:
   Entry** table;
+  int hash_full;
+  const int SIZE = (MB_SIZE / sizeof(Entry)) / 8;
 
   TranspositionTable();
   ~TranspositionTable();
