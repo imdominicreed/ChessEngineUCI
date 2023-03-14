@@ -30,10 +30,9 @@ void TranspositionTable::save(Board* b, int score, uint16_t depth, Move move,
   while (i < CLUSTER_SIZE) {
     if (cluster[i].depth() == INVALID_DEPTH || (cluster[i].key() == b->key)) {
       if (cluster[i].depth() == INVALID_DEPTH) {
-        cluster[i].save(b->key, score, depth, move, type);
         hash_full++;
-      } else if (cluster[i].depth() < depth)
-        cluster[i].save(b->key, score, depth, move, type);
+      }
+      cluster[i].save(b->key, score, depth, move, type);
 
       return;
     }

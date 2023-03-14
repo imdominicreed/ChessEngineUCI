@@ -10,7 +10,7 @@
 
 const uint64_t INVALID_DEPTH = 255;
 
-enum class NodeType { PV = 0, Cut, All };
+enum class NodeType { Exact = 0, Upper, Lower };
 
 struct Entry {
   uint64_t xor_key;

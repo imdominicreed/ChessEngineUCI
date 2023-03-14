@@ -15,7 +15,7 @@ void run_ids(Board* board, Move* best_move) {
   overwrite = 0;
 
   cerr << "cm: " << (BIG - 1) << endl;
-  while (!out_of_time()) {
+  while (!out_of_time() && i < 256) {
     cerr << i << endl;
     nodes = 0;
 
@@ -60,7 +60,8 @@ void run_ids(Board* board, Move* best_move) {
     else
       cout << "cp " << eval;
 
-    cout << " hashfull " << (tt.hash_full * 1000) / (tt.SIZE * 8) << endl;
+    cout << " hashfull " << (tt.hash_full * 1000LL) / (tt.SIZE * 8LL) << endl;
+    i++;
   }
 }
 
