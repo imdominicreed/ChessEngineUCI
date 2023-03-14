@@ -35,10 +35,10 @@ int run_perft(Board* b, int depth) {
     return legal_moves;
   }
 
-  Entry e = tt.probe(b);
-  if (e.depth() == depth) {
-    return e.score();
-  }
+  // Entry e = tt.probe(b);
+  // if (e.depth() == depth) {
+  //   return e.score();
+  // }
 
   int states = 0;
   while (start != end) {
@@ -48,7 +48,7 @@ int run_perft(Board* b, int depth) {
     start++;
   }
 
-  tt.save(b, states, depth, 0, NodeType::PV);
+  // tt.save(b, states, depth, 0, NodeType::PV);
 
   return states;
 }

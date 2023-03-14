@@ -10,7 +10,7 @@
 
 const uint64_t INVALID_DEPTH = 255;
 
-enum class NodeType { PV = 0, Cut, All };
+enum class NodeType { Exact = 0, Upper, Lower };
 
 struct Entry {
   uint64_t xor_key;
@@ -26,7 +26,7 @@ struct Entry {
 
 const Entry INVALID_ENTRY = {0, INVALID_DEPTH << 32};
 
-const int MB_SIZE = 1 * 1024 * 1024;
+const int MB_SIZE = 256 * 1024 * 1024;
 const int CLUSTER_SIZE = 8;
 
 class TranspositionTable {

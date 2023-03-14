@@ -35,6 +35,8 @@ int nodes;
 int tbl_hits;
 int alphabetat(Board* board, int depth, int alpha, int beta) {
   // Stop Searching
+  int orig_alpha = alpha;
+
   if ((nodes & 1023) == 1023) {
     check_time();
   }
@@ -52,21 +54,28 @@ int alphabetat(Board* board, int depth, int alpha, int beta) {
   if (end == nullptr) {
     return BIG;
   }
-  if (depth == 0) return eval(board);
+  if (depth == 0) return Quiesce(board, alpha, beta, -5);
 
   // Table check
   Entry entry = tt.probe(board);
   Move best_move = 0;
   int best_score = SMALL;
+
   if (entry.depth() != INVALID_DEPTH && entry.depth() >= depth) {
-    tbl_hits++;
-    return entry.score();
+    if (entry.node_type() == NodeType::Exact)
+      return entry.score();
+    else if (entry.node_type() == NodeType::Lower)
+      alpha = max(alpha, entry.score());
+    else
+      beta = min(beta, entry.score());
   }
+  if (alpha >= beta) return entry.score();
 
   move_sort(start, end, board);
 
   // Search child Nodes
   bool checkmate = true;
+
   while (start != end) {
     // Do move
     UndoMove undo = board->doMove(*start);
@@ -96,6 +105,15 @@ int alphabetat(Board* board, int depth, int alpha, int beta) {
   if (checkmate && !board->currentCheck()) {
     best_score = 0;
   }
-  tt.save(board, best_score, depth, best_move, NodeType::PV);
+
+  NodeType b;
+  if (best_score <= orig_alpha)
+    b = NodeType::Upper;
+  else if (best_score >= beta)
+    b = NodeType::Lower;
+  else
+    b = NodeType::Exact;
+
+  tt.save(board, best_score, depth, best_move, b);
   return best_score;
 }
