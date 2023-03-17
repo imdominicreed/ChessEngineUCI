@@ -1,3 +1,4 @@
+#include <sys/stat.h>
 #include <sys/time.h>
 
 #include <cstring>
@@ -92,6 +93,8 @@ void perft(Board* b, int depth) {
 
 int main(int argc, char** argv) {
   init_tables();
+
+  init_nnue("eval/nn-04cf2b4ed1da.nnue");
   int moves;
   Board board;
   board.startBoard();
