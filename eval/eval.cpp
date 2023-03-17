@@ -54,6 +54,7 @@ const int mirror_score[128] = {
 int count(bitboard num) { return __builtin_popcountll(num); }
 
 int eval(Board* board) {
+  if (0 == 0) return eval_nnue(board);
   bitboard pieces = board->colorPiecesBB[WHITE] | board->colorPiecesBB[BLACK];
   int eval = 0;
   int sq;
@@ -109,3 +110,37 @@ int eval(Board* board) {
   }
   return (board->turn == WHITE ? 1 : -1) * eval;
 }
+// * Piece codes are
+// *     wking=1, wqueen=2, wrook=3, wbishop= 4, wknight= 5, wpawn= 6,
+// *     bking=7, bqueen=8, brook=9, bbishop=10, bknight=11, bpawn=12,
+
+int eval_nnue(Board* b) {
+  bitboard board = b->colorPiecesBB[WHITE] | b->colorPiecesBB[BLACK];
+  int num_pieces =
+      __builtin_popcountll(b->colorPiecesBB[WHITE] | b->colorPiecesBB[BLACK]);
+  int pieces[num_pieces + 1];
+  int squares[num_pieces + 1];
+  int i = 2;
+  while (board) {
+    int sq;
+    POP_BSF(sq, board);
+    int piece = b->getPieceType(sq) + 1;
+    if (1ULL << sq & b->colorPiecesBB[BLACK]) piece += 6;
+    if (piece == 1) {
+      pieces[0] = 1;
+      squares[0] = sq;
+    } else if (piece == 7) {
+      pieces[1] = 7;
+      squares[1] = sq;
+    } else {
+      pieces[i] = piece;
+      squares[i] = sq;
+      i++;
+    }
+  }
+  pieces[num_pieces] = 0;
+  squares[num_pieces] = 0;
+  return nnue_evaluate(b->turn, pieces, squares);
+}
+
+void init_nnue(char* file_path) { nnue_init(file_path); }

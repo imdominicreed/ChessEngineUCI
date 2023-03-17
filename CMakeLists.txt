@@ -24,7 +24,9 @@ include_directories("engines" "board" "magic" "util")
 
 file(GLOB eval CONFIGURE_DEPENDS "eval/*")
 
-add_executable(uci main.cpp ${eval} ${engines} ${board} ${move} ${magic} ${util})
+file(GLOB nnue CONFIGURE_DEPENDS "eval/nnue/*")
+
+add_executable(uci main.cpp ${eval} ${engines} ${board} ${move} ${magic} ${util} ${nnue})
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 target_link_libraries(uci PRIVATE Threads::Threads)

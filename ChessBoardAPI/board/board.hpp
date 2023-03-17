@@ -31,12 +31,12 @@ struct Zorbist {
 };
 
 enum PieceType {
-  Pawn,
-  Knight,
-  Bishop,
-  Rook,
-  Queen,
   King,
+  Queen,
+  Rook,
+  Bishop,
+  Knight,
+  Pawn,
   NumPieces = 6,
   None,
 };
